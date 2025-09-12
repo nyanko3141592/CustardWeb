@@ -12,20 +12,6 @@ export async function loadTemplates(): Promise<Record<string, CustardKeyboard>> 
     }
   } catch {}
 
-  // Try bundler glob import to include all JSON files under src/lib/templates
-  // This picks up newly added presets without hardcoding filenames.
-  try {
-    // Turbopack/Webpack glob import
-    const modules: Record<string, any> = (import.meta as any).glob('./templates/*.json', { eager: true })
-    const collected: Record<string, CustardKeyboard> = {}
-    for (const [filePath, mod] of Object.entries(modules)) {
-      const name = filePath.split('/').pop()?.replace(/\.json$/i, '') || ''
-      const data = (mod as any)?.default ?? mod
-      if (name && data) collected[name] = data as CustardKeyboard
-    }
-    if (Object.keys(collected).length > 0) return collected
-  } catch {}
-
   // Fallback: import static JSONs bundled with the app
   try {
     const [
@@ -36,12 +22,12 @@ export async function loadTemplates(): Promise<Record<string, CustardKeyboard>> 
       qwerty_ja,
       symbols_flick,
     ] = await Promise.all([
-      import('@/lib/templates/english_flick.json'),
-      import('@/lib/templates/japanese_flick.json'),
-      import('@/lib/templates/qwerty_en.json'),
-      import('@/lib/templates/qwerty_flick.json'),
-      import('@/lib/templates/qwerty_ja.json'),
-      import('@/lib/templates/symbols_flick.json'),
+      import('./templates/english_flick.json'),
+      import('./templates/japanese_flick.json'),
+      import('./templates/qwerty_en.json'),
+      import('./templates/qwerty_flick.json'),
+      import('./templates/qwerty_ja.json'),
+      import('./templates/symbols_flick.json'),
     ])
 
     const templates: Record<string, CustardKeyboard> = {
