@@ -4,7 +4,6 @@ import type { CustardKeyboard } from '@/types/custard'
 import english_flick from './templates/english_flick.json'
 import japanese_flick from './templates/japanese_flick.json'
 import qwerty_en from './templates/qwerty_en.json'
-import qwerty_flick from './templates/qwerty_flick.json'
 import qwerty_ja from './templates/qwerty_ja.json'
 import symbols_flick from './templates/symbols_flick.json'
 
@@ -24,7 +23,6 @@ export async function loadTemplates(): Promise<Record<string, CustardKeyboard>> 
     english_flick: english_flick as unknown as CustardKeyboard,
     japanese_flick: japanese_flick as unknown as CustardKeyboard,
     qwerty_en: qwerty_en as unknown as CustardKeyboard,
-    qwerty_flick: qwerty_flick as unknown as CustardKeyboard,
     qwerty_ja: qwerty_ja as unknown as CustardKeyboard,
     symbols_flick: symbols_flick as unknown as CustardKeyboard,
   }
