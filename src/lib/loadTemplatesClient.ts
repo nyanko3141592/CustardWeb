@@ -1,5 +1,12 @@
 "use client"
 import type { CustardKeyboard } from '@/types/custard'
+// Static JSON imports for dev/webpack compatibility
+import english_flick from './templates/english_flick.json'
+import japanese_flick from './templates/japanese_flick.json'
+import qwerty_en from './templates/qwerty_en.json'
+import qwerty_flick from './templates/qwerty_flick.json'
+import qwerty_ja from './templates/qwerty_ja.json'
+import symbols_flick from './templates/symbols_flick.json'
 
 // Load templates via API when available (dev/Vercel),
 // and fall back to bundled JSON files for static export (GitHub Pages).
@@ -12,34 +19,14 @@ export async function loadTemplates(): Promise<Record<string, CustardKeyboard>> 
     }
   } catch {}
 
-  // Fallback: import static JSONs bundled with the app
-  try {
-    const [
-      english_flick,
-      japanese_flick,
-      qwerty_en,
-      qwerty_flick,
-      qwerty_ja,
-      symbols_flick,
-    ] = await Promise.all([
-      import('./templates/english_flick.json'),
-      import('./templates/japanese_flick.json'),
-      import('./templates/qwerty_en.json'),
-      import('./templates/qwerty_flick.json'),
-      import('./templates/qwerty_ja.json'),
-      import('./templates/symbols_flick.json'),
-    ])
-
-    const templates: Record<string, CustardKeyboard> = {
-      english_flick: english_flick.default as CustardKeyboard,
-      japanese_flick: japanese_flick.default as CustardKeyboard,
-      qwerty_en: qwerty_en.default as CustardKeyboard,
-      qwerty_flick: qwerty_flick.default as CustardKeyboard,
-      qwerty_ja: qwerty_ja.default as CustardKeyboard,
-      symbols_flick: symbols_flick.default as CustardKeyboard,
-    }
-    return templates
-  } catch {
-    return {}
+  // Fallback: use statically imported JSON presets bundled with the app
+  const templates: Record<string, CustardKeyboard> = {
+    english_flick: english_flick as unknown as CustardKeyboard,
+    japanese_flick: japanese_flick as unknown as CustardKeyboard,
+    qwerty_en: qwerty_en as unknown as CustardKeyboard,
+    qwerty_flick: qwerty_flick as unknown as CustardKeyboard,
+    qwerty_ja: qwerty_ja as unknown as CustardKeyboard,
+    symbols_flick: symbols_flick as unknown as CustardKeyboard,
   }
+  return templates
 }
