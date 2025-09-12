@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { CustardKeyboard, Key } from '@/types/custard'
+import { CustardKeyboard, Key, KeyWrapper } from '@/types/custard'
 import { normalizeForAzooKey } from '@/lib/normalize'
 import { useFileManagement } from '@/hooks/useFileManagement'
 import { Clock, RotateCcw } from 'lucide-react'
@@ -225,7 +225,7 @@ export default function KeyboardDesignerV2() {
     const kb = JSON.parse(JSON.stringify(fileManager.currentKeyboard)) as CustardKeyboard
 
     // Create an "unset" custom key at the specified grid cell
-    const newKey = {
+    const newKey: KeyWrapper = {
       key_type: 'custom',
       specifier_type: 'grid_fit',
       specifier: { x, y, width: 1, height: 1 },
