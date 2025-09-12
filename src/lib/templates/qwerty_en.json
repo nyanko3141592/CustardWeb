@@ -80,12 +80,12 @@
                 },
                 "design": {
                   "label": {
-                    "text": ""
+                    "text": "E"
                   }
                 },
                 "press_actions": [
                   {
-                    "text": "",
+                    "text": "E",
                     "type": "input"
                   }
                 ]
@@ -96,7 +96,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "E",
+              "main": "e",
               "sub": "3"
             }
           },
@@ -127,7 +127,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "G",
+              "main": "g",
               "sub": "("
             },
             "color": "normal"
@@ -160,6 +160,29 @@
                   }
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "G"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "G"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "longpress_actions": {
@@ -188,7 +211,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "C",
+              "main": "c",
               "sub": "?"
             }
           },
@@ -219,6 +242,29 @@
                     "type": "input"
                   }
                 ]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "C"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "C"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
               }
             }
           ]
@@ -343,12 +389,35 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "T"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "T"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "T",
+              "main": "t",
               "sub": "5"
             },
             "color": "normal"
@@ -386,7 +455,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "M",
+              "main": "m",
               "sub": "."
             }
           },
@@ -413,6 +482,29 @@
                   "repeat": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "M"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "M"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ]
         },
@@ -431,7 +523,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "Q",
+              "main": "q",
               "sub": "1"
             }
           },
@@ -456,6 +548,30 @@
                     "text": "1"
                   }
                 ]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "Q"
+                  },
+                  "color": "normal"
+                },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "Q"
+                  }
+                ],
+                "variations": []
               }
             }
           ],
@@ -502,6 +618,29 @@
                   }
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "K"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "K"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "press_actions": [
@@ -513,7 +652,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "K",
+              "main": "k",
               "sub": "]"
             },
             "color": "normal"
@@ -538,7 +677,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "H",
+              "main": "h",
               "sub": ")"
             },
             "color": "normal"
@@ -574,6 +713,29 @@
                   "repeat": [],
                   "duration": "normal",
                   "start": []
+                }
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "H"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "H"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
                 }
               }
             }
@@ -618,13 +780,36 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "L"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "L"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "design": {
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "L",
+              "main": "l",
               "sub": "¥"
             }
           },
@@ -648,7 +833,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "P",
+              "main": "p",
               "sub": "0"
             },
             "color": "normal"
@@ -680,6 +865,29 @@
                     "text": "0"
                   }
                 ]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "P"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "P"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
               }
             }
           ],
@@ -729,6 +937,29 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "J"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "J"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "press_actions": [
@@ -745,7 +976,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "J",
+              "main": "j",
               "sub": "["
             },
             "color": "normal"
@@ -820,12 +1051,36 @@
                   }
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "R"
+                  },
+                  "color": "normal"
+                },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "R"
+                  }
+                ],
+                "variations": []
+              }
             }
           ],
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "R",
+              "main": "r",
               "sub": "4"
             },
             "color": "normal"
@@ -845,7 +1100,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "Y",
+              "main": "y",
               "sub": "6"
             }
           },
@@ -869,6 +1124,29 @@
                   "start": [],
                   "repeat": [],
                   "duration": "normal"
+                }
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "Y"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "Y"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
                 }
               }
             }
@@ -940,7 +1218,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "N",
+              "main": "n",
               "sub": ","
             }
           },
@@ -959,6 +1237,29 @@
                   {
                     "type": "input",
                     "text": ","
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "N"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "N"
                   }
                 ],
                 "longpress_actions": {
@@ -1015,12 +1316,35 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "B"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "B"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "B",
+              "main": "b",
               "sub": "・"
             },
             "color": "normal"
@@ -1129,6 +1453,29 @@
                   "repeat": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "I"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "I"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "longpress_actions": {
@@ -1140,7 +1487,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "I",
+              "main": "i",
               "sub": "8"
             }
           }
@@ -1184,12 +1531,35 @@
                   "start": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "F"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "F"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "F",
+              "main": "f",
               "sub": "@"
             },
             "color": "normal"
@@ -1241,6 +1611,30 @@
                   "repeat": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "W"
+                  },
+                  "color": "normal"
+                },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "W"
+                  }
+                ],
+                "variations": []
+              }
             }
           ],
           "longpress_actions": {
@@ -1251,7 +1645,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "W",
+              "main": "w",
               "sub": "2"
             },
             "color": "normal"
@@ -1278,7 +1672,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "V",
+              "main": "v",
               "sub": "!"
             }
           },
@@ -1315,6 +1709,29 @@
                   }
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "V"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "V"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ]
         }
@@ -1332,7 +1749,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "Z",
+              "main": "z",
               "sub": "."
             },
             "color": "normal"
@@ -1370,6 +1787,29 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "Z"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "Z"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ]
         }
@@ -1392,7 +1832,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "D",
+              "main": "d",
               "sub": ":"
             },
             "color": "normal"
@@ -1425,6 +1865,29 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "D"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "D"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ]
         }
@@ -1443,7 +1906,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "U",
+              "main": "u",
               "sub": "7"
             }
           },
@@ -1472,6 +1935,29 @@
                   {
                     "type": "input",
                     "text": "7"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "U"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "U"
                   }
                 ],
                 "longpress_actions": {
@@ -1520,6 +2006,29 @@
                   "start": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "A"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "A"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "press_actions": [
@@ -1532,7 +2041,7 @@
             "color": "normal",
             "label": {
               "type": "main_and_sub",
-              "main": "A",
+              "main": "a",
               "sub": "-"
             }
           }
@@ -1557,7 +2066,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "X",
+              "main": "x",
               "sub": ","
             },
             "color": "normal"
@@ -1584,6 +2093,29 @@
                   "repeat": []
                 }
               }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "X"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "X"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              }
             }
           ],
           "longpress_actions": {
@@ -1606,7 +2138,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "S",
+              "main": "s",
               "sub": "/"
             },
             "color": "normal"
@@ -1632,6 +2164,29 @@
                     "text": "/"
                   }
                 ]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "S"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "S"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
               }
             }
           ],
@@ -1661,7 +2216,7 @@
           "design": {
             "label": {
               "type": "main_and_sub",
-              "main": "O",
+              "main": "o",
               "sub": "9"
             },
             "color": "normal"
@@ -1697,6 +2252,29 @@
                   "duration": "normal",
                   "repeat": [],
                   "start": []
+                }
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": {
+                  "label": {
+                    "text": "O"
+                  },
+                  "color": "normal"
+                },
+                "press_actions": [
+                  {
+                    "type": "input",
+                    "text": "O"
+                  }
+                ],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
                 }
               }
             }
