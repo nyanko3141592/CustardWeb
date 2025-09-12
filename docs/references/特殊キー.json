@@ -1,0 +1,213 @@
+{
+  "identifier": "新規タブ",
+  "input_style": "direct",
+  "interface": {
+    "key_layout": { "row_count": 5, "column_count": 3, "type": "grid_fit" },
+    "key_style": "tenkey_style",
+    "keys": [
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 0, "height": 1, "width": 1, "y": 2 },
+        "key": { "type": "flick_star123_tab" },
+        "key_type": "system"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 1, "x": 2, "width": 1, "height": 1 },
+        "key": { "type": "flick_kutoten" },
+        "key_type": "system"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "height": 1, "y": 2, "x": 1 },
+        "key": {
+          "design": { "color": "normal", "label": { "text": "" } },
+          "press_actions": [{ "text": "", "type": "input" }],
+          "longpress_actions": {
+            "repeat": [],
+            "duration": "normal",
+            "start": []
+          },
+          "variations": []
+        },
+        "key_type": "custom"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 0, "x": 0, "width": 1, "height": 1 },
+        "key": { "type": "enter" },
+        "key_type": "system"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 3, "height": 1, "width": 1, "y": 1 },
+        "key": { "type": "flick_hira_tab" },
+        "key_type": "system"
+      },
+      {
+        "key_type": "system",
+        "specifier_type": "grid_fit",
+        "key": { "type": "change_keyboard" },
+        "specifier": { "x": 4, "width": 1, "y": 0, "height": 1 }
+      },
+      {
+        "key_type": "custom",
+        "key": {
+          "press_actions": [{ "text": "", "type": "input" }],
+          "variations": [],
+          "longpress_actions": {
+            "duration": "normal",
+            "repeat": [],
+            "start": []
+          },
+          "design": { "color": "normal", "label": { "text": "" } }
+        },
+        "specifier": { "y": 2, "width": 1, "height": 1, "x": 2 },
+        "specifier_type": "grid_fit"
+      },
+      {
+        "key_type": "custom",
+        "key": {
+          "variations": [],
+          "press_actions": [{ "type": "input", "text": "" }],
+          "longpress_actions": {
+            "duration": "normal",
+            "start": [],
+            "repeat": []
+          },
+          "design": { "color": "normal", "label": { "text": "" } }
+        },
+        "specifier": { "height": 1, "x": 4, "y": 2, "width": 1 },
+        "specifier_type": "grid_fit"
+      },
+      {
+        "key_type": "system",
+        "key": { "type": "next_candidate" },
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 3, "width": 1, "y": 0, "height": 1 }
+      },
+      {
+        "key_type": "custom",
+        "key": {
+          "press_actions": [{ "type": "delete", "count": 1 }],
+          "design": {
+            "label": { "system_image": "delete.left" },
+            "color": "special"
+          },
+          "longpress_actions": {
+            "duration": "normal",
+            "repeat": [{ "type": "delete", "count": 1 }],
+            "start": []
+          },
+          "variations": [
+            {
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "system_image": "xmark" } },
+                "press_actions": [{ "type": "smart_delete_default" }]
+              },
+              "direction": "left"
+            }
+          ]
+        },
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 1, "width": 1, "y": 0, "height": 1 }
+      },
+      {
+        "key_type": "system",
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 1, "x": 4, "width": 1, "height": 1 },
+        "key": { "type": "flick_abc_tab" }
+      },
+      {
+        "key_type": "system",
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 1, "x": 1, "width": 1, "height": 1 },
+        "key": { "type": "upper_lower" }
+      },
+      {
+        "key_type": "custom",
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "height": 1, "y": 2, "x": 3 },
+        "key": {
+          "design": { "label": { "text": "" }, "color": "normal" },
+          "press_actions": [{ "type": "input", "text": "" }],
+          "variations": [],
+          "longpress_actions": {
+            "start": [],
+            "repeat": [],
+            "duration": "normal"
+          }
+        }
+      },
+      {
+        "key_type": "custom",
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "y": 0, "x": 2, "height": 1 },
+        "key": {
+          "design": { "label": { "text": " " }, "color": "special" },
+          "press_actions": [{ "text": " ", "type": "input" }],
+          "variations": [
+            {
+              "key": {
+                "design": { "label": { "text": "←" } },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [{ "type": "move_cursor", "count": -1 }],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "count": -1, "type": "move_cursor" }]
+              },
+              "type": "flick_variation",
+              "direction": "left"
+            },
+            {
+              "direction": "top",
+              "key": {
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "type": "input", "text": "　" }],
+                "design": { "label": { "text": "全角" } }
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "bottom",
+              "key": {
+                "press_actions": [{ "type": "input", "text": "\t" }],
+                "design": { "label": { "text": "tab" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              },
+              "type": "flick_variation"
+            }
+          ],
+          "longpress_actions": {
+            "duration": "normal",
+            "start": [{ "type": "toggle_cursor_bar" }],
+            "repeat": []
+          }
+        }
+      },
+      {
+        "key_type": "system",
+        "key": { "type": "flick_kogaki" },
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 0, "y": 1, "width": 1, "height": 1 }
+      }
+    ]
+  },
+  "language": "en_US",
+  "metadata": { "custard_version": "1.2", "display_name": "新規タブ" }
+}

@@ -1,0 +1,808 @@
+{
+  "identifier": "japanese_flick",
+  "language": "ja_JP",
+  "input_style": "direct",
+  "interface": {
+    "key_style": "tenkey_style",
+    "key_layout": { "column_count": 4, "type": "grid_fit", "row_count": 5 },
+    "keys": [
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 0, "x": 4, "width": 1, "height": 1 },
+        "key_type": "custom",
+        "key": {
+          "press_actions": [{ "count": 1, "type": "delete" }],
+          "design": {
+            "color": "special",
+            "label": { "system_image": "delete.left" }
+          },
+          "variations": [
+            {
+              "key": {
+                "press_actions": [{ "type": "smart_delete_default" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "system_image": "xmark" } }
+              },
+              "direction": "left",
+              "type": "flick_variation"
+            }
+          ],
+          "longpress_actions": {
+            "repeat": [{ "type": "delete", "count": 1 }],
+            "duration": "normal",
+            "start": []
+          }
+        }
+      },
+      {
+        "specifier_type": "grid_fit",
+        "key": {
+          "design": { "label": { "text": "な" }, "color": "normal" },
+          "press_actions": [{ "text": "な", "type": "input" }],
+          "longpress_actions": {
+            "duration": "normal",
+            "repeat": [],
+            "start": []
+          },
+          "variations": [
+            {
+              "type": "flick_variation",
+              "direction": "left",
+              "key": {
+                "press_actions": [{ "type": "input", "text": "に" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                },
+                "design": { "label": { "text": "に" } }
+              }
+            },
+            {
+              "key": {
+                "design": { "label": { "text": "ぬ" } },
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                },
+                "press_actions": [{ "type": "input", "text": "ぬ" }]
+              },
+              "type": "flick_variation",
+              "direction": "top"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "ね" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                },
+                "design": { "label": { "text": "ね" } }
+              },
+              "type": "flick_variation",
+              "direction": "right"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "の" }],
+                "design": { "label": { "text": "の" } },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                }
+              },
+              "type": "flick_variation",
+              "direction": "bottom"
+            }
+          ]
+        },
+        "key_type": "custom",
+        "specifier": { "width": 1, "height": 1, "x": 2, "y": 1 }
+      },
+      {
+        "specifier_type": "grid_fit",
+        "key": {
+          "design": { "color": "normal", "label": { "text": "た" } },
+          "press_actions": [{ "type": "input", "text": "た" }],
+          "longpress_actions": {
+            "duration": "normal",
+            "repeat": [],
+            "start": []
+          },
+          "variations": [
+            {
+              "key": {
+                "press_actions": [{ "text": "ち", "type": "input" }],
+                "design": { "label": { "text": "ち" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              },
+              "type": "flick_variation",
+              "direction": "left"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "つ" }],
+                "design": { "label": { "text": "つ" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                }
+              },
+              "type": "flick_variation",
+              "direction": "top"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "て" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "design": { "label": { "text": "て" } }
+              },
+              "type": "flick_variation",
+              "direction": "right"
+            },
+            {
+              "key": {
+                "design": { "label": { "text": "と" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "press_actions": [{ "text": "と", "type": "input" }]
+              },
+              "type": "flick_variation",
+              "direction": "bottom"
+            }
+          ]
+        },
+        "key_type": "custom",
+        "specifier": { "width": 1, "height": 1, "x": 1, "y": 1 }
+      },
+      {
+        "key": {
+          "press_actions": [{ "type": "input", "text": "や" }],
+          "variations": [
+            {
+              "key": {
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "press_actions": [{ "type": "input", "text": "「" }],
+                "design": { "label": { "text": "「" } }
+              },
+              "type": "flick_variation",
+              "direction": "left"
+            },
+            {
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "ゆ" } },
+                "press_actions": [{ "text": "ゆ", "type": "input" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                }
+              },
+              "direction": "top"
+            },
+            {
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "」" } },
+                "press_actions": [{ "text": "」", "type": "input" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                }
+              },
+              "direction": "right"
+            },
+            {
+              "key": {
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "design": { "label": { "text": "よ" } },
+                "press_actions": [{ "type": "input", "text": "よ" }]
+              },
+              "type": "flick_variation",
+              "direction": "bottom"
+            }
+          ],
+          "design": { "color": "normal", "label": { "text": "や" } },
+          "longpress_actions": {
+            "duration": "normal",
+            "start": [],
+            "repeat": []
+          }
+        },
+        "key_type": "custom",
+        "specifier": { "y": 2, "width": 1, "height": 1, "x": 2 },
+        "specifier_type": "grid_fit"
+      },
+      {
+        "key_type": "custom",
+        "specifier_type": "grid_fit",
+        "specifier": { "x": 4, "width": 1, "y": 1, "height": 1 },
+        "key": {
+          "longpress_actions": {
+            "start": [{ "type": "toggle_cursor_bar" }],
+            "repeat": [],
+            "duration": "normal"
+          },
+          "design": { "label": { "text": "空白" }, "color": "special" },
+          "variations": [
+            {
+              "direction": "left",
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "←" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": [{ "count": -1, "type": "move_cursor" }]
+                },
+                "press_actions": [{ "type": "move_cursor", "count": -1 }]
+              }
+            },
+            {
+              "direction": "top",
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "全角" } },
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "type": "input", "text": "　" }]
+              }
+            },
+            {
+              "direction": "bottom",
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "type": "input", "text": "\t" }],
+                "design": { "label": { "text": "tab" } }
+              }
+            }
+          ],
+          "press_actions": [{ "text": " ", "type": "input" }]
+        }
+      },
+      {
+        "key_type": "system",
+        "key": { "type": "change_keyboard" },
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "x": 0, "y": 3, "height": 1 }
+      },
+      {
+        "key_type": "system",
+        "key": { "type": "enter" },
+        "specifier_type": "grid_fit",
+        "specifier": { "height": 2, "y": 2, "x": 4, "width": 1 }
+      },
+      {
+        "key": { "type": "flick_star123_tab" },
+        "key_type": "system",
+        "specifier": { "y": 0, "width": 1, "x": 0, "height": 1 },
+        "specifier_type": "grid_fit"
+      },
+      {
+        "specifier": { "x": 3, "y": 0, "width": 1, "height": 1 },
+        "key_type": "custom",
+        "specifier_type": "grid_fit",
+        "key": {
+          "design": { "color": "normal", "label": { "text": "さ" } },
+          "variations": [
+            {
+              "key": {
+                "design": { "label": { "text": "し" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                },
+                "press_actions": [{ "text": "し", "type": "input" }]
+              },
+              "type": "flick_variation",
+              "direction": "left"
+            },
+            {
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "text": "す" } },
+                "press_actions": [{ "type": "input", "text": "す" }]
+              },
+              "type": "flick_variation",
+              "direction": "top"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "せ" }],
+                "design": { "label": { "text": "せ" } },
+                "longpress_actions": {
+                  "start": [],
+                  "duration": "normal",
+                  "repeat": []
+                }
+              },
+              "type": "flick_variation",
+              "direction": "right"
+            },
+            {
+              "key": {
+                "design": { "label": { "text": "そ" } },
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "press_actions": [{ "text": "そ", "type": "input" }]
+              },
+              "type": "flick_variation",
+              "direction": "bottom"
+            }
+          ],
+          "press_actions": [{ "type": "input", "text": "さ" }],
+          "longpress_actions": {
+            "repeat": [],
+            "duration": "normal",
+            "start": []
+          }
+        }
+      },
+      {
+        "specifier": { "width": 1, "height": 1, "x": 3, "y": 2 },
+        "specifier_type": "grid_fit",
+        "key_type": "custom",
+        "key": {
+          "design": { "label": { "text": "ら" }, "color": "normal" },
+          "variations": [
+            {
+              "type": "flick_variation",
+              "key": {
+                "press_actions": [{ "type": "input", "text": "り" }],
+                "design": { "label": { "text": "り" } },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                }
+              },
+              "direction": "left"
+            },
+            {
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "type": "input", "text": "る" }],
+                "design": { "label": { "text": "る" } }
+              },
+              "direction": "top"
+            },
+            {
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "れ" } },
+                "press_actions": [{ "type": "input", "text": "れ" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                }
+              },
+              "direction": "right"
+            },
+            {
+              "type": "flick_variation",
+              "key": {
+                "press_actions": [{ "type": "input", "text": "ろ" }],
+                "longpress_actions": {
+                  "start": [],
+                  "duration": "normal",
+                  "repeat": []
+                },
+                "design": { "label": { "text": "ろ" } }
+              },
+              "direction": "bottom"
+            }
+          ],
+          "longpress_actions": {
+            "start": [],
+            "duration": "normal",
+            "repeat": []
+          },
+          "press_actions": [{ "type": "input", "text": "ら" }]
+        }
+      },
+      {
+        "specifier": { "x": 0, "height": 1, "y": 2, "width": 1 },
+        "key": { "type": "flick_hira_tab" },
+        "specifier_type": "grid_fit",
+        "key_type": "system"
+      },
+      {
+        "specifier": { "height": 1, "x": 1, "width": 1, "y": 3 },
+        "key": { "type": "flick_kogaki" },
+        "specifier_type": "grid_fit",
+        "key_type": "system"
+      },
+      {
+        "specifier": { "y": 2, "width": 1, "height": 1, "x": 1 },
+        "key": {
+          "longpress_actions": {
+            "repeat": [],
+            "start": [],
+            "duration": "normal"
+          },
+          "variations": [
+            {
+              "direction": "left",
+              "type": "flick_variation",
+              "key": {
+                "design": { "label": { "text": "み" } },
+                "press_actions": [{ "text": "み", "type": "input" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                }
+              }
+            },
+            {
+              "direction": "top",
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "design": { "label": { "text": "む" } },
+                "press_actions": [{ "text": "む", "type": "input" }]
+              }
+            },
+            {
+              "direction": "right",
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "duration": "normal",
+                  "repeat": []
+                },
+                "design": { "label": { "text": "め" } },
+                "press_actions": [{ "type": "input", "text": "め" }]
+              }
+            },
+            {
+              "direction": "bottom",
+              "type": "flick_variation",
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "duration": "normal",
+                  "repeat": []
+                },
+                "press_actions": [{ "text": "も", "type": "input" }],
+                "design": { "label": { "text": "も" } }
+              }
+            }
+          ],
+          "press_actions": [{ "type": "input", "text": "ま" }],
+          "design": { "label": { "text": "ま" }, "color": "normal" }
+        },
+        "specifier_type": "grid_fit",
+        "key_type": "custom"
+      },
+      {
+        "key": {
+          "variations": [
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "い" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                },
+                "design": { "label": { "text": "い" } }
+              },
+              "direction": "left",
+              "type": "flick_variation"
+            },
+            {
+              "key": {
+                "press_actions": [{ "text": "う", "type": "input" }],
+                "design": { "label": { "text": "う" } },
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                }
+              },
+              "direction": "top",
+              "type": "flick_variation"
+            },
+            {
+              "key": {
+                "design": { "label": { "text": "え" } },
+                "press_actions": [{ "text": "え", "type": "input" }],
+                "longpress_actions": {
+                  "start": [],
+                  "duration": "normal",
+                  "repeat": []
+                }
+              },
+              "direction": "right",
+              "type": "flick_variation"
+            },
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "お" }],
+                "design": { "label": { "text": "お" } },
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                }
+              },
+              "direction": "bottom",
+              "type": "flick_variation"
+            }
+          ],
+          "longpress_actions": {
+            "duration": "normal",
+            "start": [],
+            "repeat": []
+          },
+          "press_actions": [{ "text": "あ", "type": "input" }],
+          "design": { "color": "normal", "label": { "text": "あ" } }
+        },
+        "specifier_type": "grid_fit",
+        "key_type": "custom",
+        "specifier": { "x": 1, "height": 1, "width": 1, "y": 0 }
+      },
+      {
+        "key": { "type": "flick_abc_tab" },
+        "specifier_type": "grid_fit",
+        "key_type": "system",
+        "specifier": { "y": 1, "width": 1, "x": 0, "height": 1 }
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "y": 3, "height": 1, "x": 3, "width": 1 },
+        "key": { "type": "flick_kutoten" },
+        "key_type": "system"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "height": 1, "x": 2, "y": 0 },
+        "key": {
+          "longpress_actions": {
+            "duration": "normal",
+            "repeat": [],
+            "start": []
+          },
+          "press_actions": [{ "text": "か", "type": "input" }],
+          "variations": [
+            {
+              "direction": "left",
+              "key": {
+                "design": { "label": { "text": "き" } },
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "press_actions": [{ "text": "き", "type": "input" }]
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "top",
+              "key": {
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                },
+                "press_actions": [{ "text": "く", "type": "input" }],
+                "design": { "label": { "text": "く" } }
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "right",
+              "key": {
+                "longpress_actions": {
+                  "duration": "normal",
+                  "start": [],
+                  "repeat": []
+                },
+                "press_actions": [{ "text": "け", "type": "input" }],
+                "design": { "label": { "text": "け" } }
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "bottom",
+              "key": {
+                "design": { "label": { "text": "こ" } },
+                "press_actions": [{ "text": "こ", "type": "input" }],
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                }
+              },
+              "type": "flick_variation"
+            }
+          ],
+          "design": { "label": { "text": "か" }, "color": "normal" }
+        },
+        "key_type": "custom"
+      },
+      {
+        "specifier_type": "grid_fit",
+        "specifier": { "width": 1, "x": 2, "y": 3, "height": 1 },
+        "key": {
+          "design": { "label": { "text": "わ" }, "color": "normal" },
+          "variations": [
+            {
+              "direction": "left",
+              "key": {
+                "design": { "label": { "text": "を" } },
+                "press_actions": [{ "text": "を", "type": "input" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                }
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "top",
+              "key": {
+                "longpress_actions": {
+                  "repeat": [],
+                  "start": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "text": "ん" } },
+                "press_actions": [{ "type": "input", "text": "ん" }]
+              },
+              "type": "flick_variation"
+            },
+            {
+              "direction": "right",
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "text": "ー" } },
+                "press_actions": [{ "type": "input", "text": "ー" }]
+              },
+              "type": "flick_variation"
+            }
+          ],
+          "longpress_actions": {
+            "start": [],
+            "repeat": [],
+            "duration": "normal"
+          },
+          "press_actions": [{ "text": "わ", "type": "input" }]
+        },
+        "key_type": "custom"
+      },
+      {
+        "key_type": "custom",
+        "specifier_type": "grid_fit",
+        "specifier": { "height": 1, "y": 1, "width": 1, "x": 3 },
+        "key": {
+          "design": { "label": { "text": "は" }, "color": "normal" },
+          "longpress_actions": {
+            "repeat": [],
+            "duration": "normal",
+            "start": []
+          },
+          "press_actions": [{ "type": "input", "text": "は" }],
+          "variations": [
+            {
+              "key": {
+                "press_actions": [{ "type": "input", "text": "ひ" }],
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                },
+                "design": { "label": { "text": "ひ" } }
+              },
+              "type": "flick_variation",
+              "direction": "left"
+            },
+            {
+              "type": "flick_variation",
+              "direction": "top",
+              "key": {
+                "design": { "label": { "text": "ふ" } },
+                "longpress_actions": {
+                  "repeat": [],
+                  "duration": "normal",
+                  "start": []
+                },
+                "press_actions": [{ "type": "input", "text": "ふ" }]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "right",
+              "key": {
+                "longpress_actions": {
+                  "start": [],
+                  "repeat": [],
+                  "duration": "normal"
+                },
+                "design": { "label": { "text": "へ" } },
+                "press_actions": [{ "type": "input", "text": "へ" }]
+              }
+            },
+            {
+              "type": "flick_variation",
+              "direction": "bottom",
+              "key": {
+                "design": { "label": { "text": "ほ" } },
+                "press_actions": [{ "type": "input", "text": "ほ" }],
+                "longpress_actions": {
+                  "duration": "normal",
+                  "repeat": [],
+                  "start": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "metadata": { "custard_version": "1.2", "display_name": "japanese_flick" }
+}
