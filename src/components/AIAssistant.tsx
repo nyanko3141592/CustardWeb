@@ -44,6 +44,7 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
   const [connection, setConnection] = useState<null | { ok: boolean; message: string }>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [expandedSummaries, setExpandedSummaries] = useState<Set<number>>(new Set())
+  const GEMINI_MODEL = 'gemini-2.5-flash'
   
   const arrow = (d?: string) => d === 'left' ? '←' : d === 'right' ? '→' : d === 'up' || d === 'top' ? '↑' : d === 'down' || d === 'bottom' ? '↓' : ''
   const summarizeAction = (a: AIAction): string => {
@@ -81,7 +82,7 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
       case 'set_flick_longpress_repeat_input': return `LP ${idx}${arrow(a.direction)} repeat='${a.text}'`
       case 'clear_flick_longpress_start': return `LP ${idx}${arrow(a.direction)} start:clear`
       case 'clear_flick_longpress_repeat': return `LP ${idx}${arrow(a.direction)} repeat:clear`
-      default: return a.type
+      default: return ((a as any)?.type) || 'action'
     }
   }
   
@@ -123,43 +124,114 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
     setLoading(true)
     
     try {
-      const response = await fetch('/api/gemini', {
+      // Build prompt locally (same shape as former API route)
+      const baseContext = `あなたはazooKeyキーボードのカスタマイズを支援するアシスタントです。\n現在のキーボード定義は JSON Custard 形式です。ユーザーの意図を理解し、安全で一貫した変更を提案してください。\n\n現在のキーボード定義:\n${JSON.stringify(keyboard, null, 2)}\n`
+      const promptKeyboard = `${baseContext}
+以下の仕様に従ってください:
+- identifier, language, input_style, metadata などの基本構造を維持
+- key_layout の type は "grid_fit" または "grid_scroll"
+- key_style は "tenkey_style" または "pc_style"
+- 各キーには design (label, color) とアクション (press_actions, longpress_actions) を定義
+- アクションタイプ: input, delete, move_cursor, complete, move_tab など
+
+ユーザーの指示: ${input}
+
+応答は以下のJSON形式で返してください:
+{
+  "keyboard": { 更新されたキーボード定義 },
+  "message": "変更内容の簡潔な説明"
+}`
+      const promptActions = `${baseContext}
+GUI 操作ベースの "アクション" を生成してください。アプリが同じ操作を順番に適用して編集します。以下の型のみを使用:
+- add_key { x, y, width?, height? }
+- remove_key { index }
+- move_key { index, x, y }
+- set_key_size { index, width, height }
+- set_key_label { index, text }
+- set_key_main_label { index, text }
+- set_key_sub_label { index, text }
+- set_key_label_main_sub { index, main, sub? }
+- set_key_color { index, color }
+- set_press_input { index, text }
+- set_keyboard_layout { row_count, column_count }
+- set_input_style { input_style }
+- set_language { language }
+- rename { identifier?, display_name? }
+- add_flick_variation { index, direction }
+- remove_flick_variation { index, direction }
+- set_flick_label { index, direction, text }
+- set_flick_main_label { index, direction, text }
+- set_flick_sub_label { index, direction, text }
+- set_flick_label_main_sub { index, direction, main, sub? }
+- set_flick_input { index, direction, text }
+- set_flick_color { index, direction, color }
+- set_longpress_duration { index, duration } // duration: normal|light
+- set_longpress_start_input { index, text }
+- set_longpress_repeat_input { index, text }
+- clear_longpress_start { index }
+- clear_longpress_repeat { index }
+- set_flick_longpress_duration { index, direction, duration } // duration: normal|light
+- set_flick_longpress_start_input { index, direction, text }
+- set_flick_longpress_repeat_input { index, direction, text }
+- clear_flick_longpress_start { index, direction }
+- clear_flick_longpress_repeat { index, direction }
+
+注意:
+- index は 0 始まり。無効な index を出力しない。
+- direction は left|up|right|down のいずれか。
+- duration は normal|light のいずれか。
+- x,y は grid_fit のセル座標。
+- 必要に応じて flick を追加してから編集してよい（例: set_flick_label で未存在なら追加）。
+- 矛盾する操作は避け、必要最小限のアクション列にする。
+
+ユーザーの指示: ${input}
+
+応答は JSON のみで返してください:
+{
+  "actions": [ { "type": "add_key", "x": 0, "y": 0 } ],
+  "message": "変更内容の簡潔な説明"
+}`
+
+      const systemPrompt = mode === 'actions' ? promptActions : promptKeyboard
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiKey,
-          prompt: input,
-          currentKeyboard: keyboard,
-          messages: messages,
-          mode
+          contents: [{ parts: [{ text: systemPrompt }] }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
         })
       })
-      
+
       if (!response.ok) {
         const errTxt = await response.text().catch(() => '')
-        throw new Error(`API request failed (${response.status}) ${errTxt}`)
+        throw new Error(`Gemini request failed (${response.status}) ${errTxt}`)
       }
-      
-      const data = await response.json()
 
-      if (data.keyboard) {
-        onUpdate(data.keyboard, data.message)
+      const data = await response.json()
+      const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text as string | undefined
+      if (!generatedText) throw new Error('Empty response from Gemini')
+
+      // Extract first JSON object from the text
+      const match = generatedText.match(/\{[\s\S]*\}/)
+      const parsed = match ? JSON.parse(match[0]) : {}
+
+      if (parsed.keyboard) {
+        onUpdate(parsed.keyboard, parsed.message)
         setMessages(prev => [...prev, {
           role: 'assistant',
-          content: data.message || 'キーボードを更新しました！',
+          content: parsed.message || 'キーボードを更新しました！',
           timestamp: new Date()
         }])
-      } else if (Array.isArray(data.actions)) {
-        const actions = data.actions as AIAction[]
+      } else if (Array.isArray(parsed.actions)) {
+        const actions = parsed.actions as AIAction[]
         try {
           const result = applyAiActions(keyboard, actions)
-          onUpdate(result.keyboard, data.message || result.description)
+          onUpdate(result.keyboard, parsed.message || result.description)
           const summaries = actions.map(summarizeAction)
           setMessages(prev => [...prev, {
             role: 'assistant',
-            content: data.message || result.description || 'アクションを適用しました',
+            content: parsed.message || result.description || 'アクションを適用しました',
             timestamp: new Date(),
             actions,
             summaries
@@ -174,7 +246,7 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
       } else {
         setMessages(prev => [...prev, {
           role: 'assistant',
-          content: data.message || 'エラーが発生しました。',
+          content: parsed.message || 'エラーが発生しました。',
           timestamp: new Date()
         }])
       }
@@ -194,16 +266,11 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
     if (!apiKey) return
     setConnection(null)
     try {
-      const res = await fetch('/api/gemini', {
+      const systemPrompt = `接続テスト。変更不要。以下の形式で返答:\n{\n  "actions": [],\n  "message": "OK"\n}`
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          apiKey,
-          prompt: '接続テスト: 変更不要。空のアクションを返してください。',
-          currentKeyboard: keyboard,
-          messages: [],
-          mode: 'actions'
-        })
+        body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] })
       })
       if (!res.ok) {
         const text = await res.text().catch(() => '')
@@ -211,7 +278,8 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
         return
       }
       const data = await res.json().catch(() => ({}))
-      if (Array.isArray(data.actions) || data.keyboard) {
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text
+      if (typeof text === 'string') {
         setConnection({ ok: true, message: 'OK: 接続確認できました' })
       } else {
         setConnection({ ok: false, message: 'NG: 予期しない応答' })
