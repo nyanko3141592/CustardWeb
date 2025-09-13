@@ -436,7 +436,7 @@ export default function KeyButton({ keyData, keyStyle, flickDirection = 'center'
       )}
       
       {displayMode === 'appearance' && sub && (
-        <span className="absolute top-1 left-2 text-[10px] opacity-60 max-w-[90%] truncate">
+        <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] opacity-60 max-w-[90%] truncate">
           {sub}
         </span>
       )}

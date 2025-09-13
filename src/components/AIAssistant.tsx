@@ -24,13 +24,15 @@ const suggestedPrompts = [
   'フリック入力対応にして'
 ]
 
+const createInitialSystemMessage = (): Message => ({
+  role: 'system',
+  content: 'こんにちは！キーボードをカスタマイズするお手伝いをします。どのような変更を加えたいですか？',
+  timestamp: new Date()
+})
+
 export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
   const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'system',
-      content: 'こんにちは！キーボードをカスタマイズするお手伝いをします。どのような変更を加えたいですか？',
-      timestamp: new Date()
-    }
+    createInitialSystemMessage()
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -177,6 +179,12 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
   const handleSuggestedPrompt = (prompt: string) => {
     setInput(prompt)
   }
+
+  const handleNewChat = () => {
+    setMessages([createInitialSystemMessage()])
+    setInput('')
+    setConnection(null)
+  }
   
   return (
     <div className="flex flex-col h-full">
@@ -227,6 +235,11 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
               className="ml-1 px-2 py-0.5 text-[11px] rounded bg-gray-100 hover:bg-gray-200 border border-gray-300"
               title="Gemini APIへの接続テストを実行"
             >接続テスト</button>
+            <button
+              onClick={handleNewChat}
+              className="ml-1 px-2 py-0.5 text-[11px] rounded bg-white hover:bg-gray-100 border border-gray-300"
+              title="新しいチャットを開始"
+            >新規チャット</button>
             {connection && (
               <span className={`text-[11px] ${connection.ok ? 'text-green-700' : 'text-red-600'}`}>
                 {connection.message}
