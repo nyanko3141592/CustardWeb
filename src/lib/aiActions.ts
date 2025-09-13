@@ -19,7 +19,7 @@ export type AIAction =
   | { type: 'set_language'; language: CustardKeyboard['language'] }
   | { type: 'rename'; identifier?: string; display_name?: string }
   // Long press on main key
-  | { type: 'set_longpress_duration'; index: number; duration: 'short' | 'normal' | 'long' }
+  | { type: 'set_longpress_duration'; index: number; duration: 'light' | 'normal' }
   | { type: 'set_longpress_start_input'; index: number; text: string }
   | { type: 'set_longpress_repeat_input'; index: number; text: string }
   | { type: 'clear_longpress_start'; index: number }
@@ -35,7 +35,7 @@ export type AIAction =
   | { type: 'set_flick_sub_label'; index: number; direction: FlickIn; text: string }
   | { type: 'set_flick_label_main_sub'; index: number; direction: FlickIn; main: string; sub?: string }
   // Long press inside flick
-  | { type: 'set_flick_longpress_duration'; index: number; direction: FlickIn; duration: 'short' | 'normal' | 'long' }
+  | { type: 'set_flick_longpress_duration'; index: number; direction: FlickIn; duration: 'light' | 'normal' }
   | { type: 'set_flick_longpress_start_input'; index: number; direction: FlickIn; text: string }
   | { type: 'set_flick_longpress_repeat_input'; index: number; direction: FlickIn; text: string }
   | { type: 'clear_flick_longpress_start'; index: number; direction: FlickIn }

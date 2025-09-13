@@ -84,6 +84,10 @@ function normalizeKey(key: any): Key {
     if (!Array.isArray(lp.start)) lp.start = Array.isArray(lp.start) ? lp.start : []
     if (!Array.isArray(lp.repeat)) lp.repeat = Array.isArray(lp.repeat) ? lp.repeat : []
     if (!lp.duration) lp.duration = 'normal'
+    // azooKey仕様: durationは 'normal' | 'light'
+    // 互換: 'short' は 'light' に、'long' や未知の値は 'normal' に丸める
+    if (lp.duration === 'short') lp.duration = 'light' as any
+    else if (lp.duration !== 'normal' && lp.duration !== 'light') lp.duration = 'normal'
     // Decode escapes in longpress actions
     lp.start = (lp.start || []).map((a: any) => a && a.type === 'input' && typeof a.text === 'string' ? { ...a, text: decodeEscapes(a.text) } : a)
     lp.repeat = (lp.repeat || []).map((a: any) => a && a.type === 'input' && typeof a.text === 'string' ? { ...a, text: decodeEscapes(a.text) } : a)
