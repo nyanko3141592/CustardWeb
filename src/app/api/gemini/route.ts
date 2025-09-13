@@ -49,6 +49,11 @@ GUI 操作ベースの "アクション" を生成してください。アプリ
 - set_key_label_main_sub { index, main, sub? }
 - set_key_color { index, color }
 - set_press_input { index, text }
+- set_longpress_duration { index, duration }
+- set_longpress_start_input { index, text }
+- set_longpress_repeat_input { index, text }
+- clear_longpress_start { index }
+- clear_longpress_repeat { index }
 - set_keyboard_layout { row_count, column_count }
 - set_input_style { input_style }
 - set_language { language }
@@ -61,10 +66,16 @@ GUI 操作ベースの "アクション" を生成してください。アプリ
 - set_flick_label_main_sub { index, direction, main, sub? }
 - set_flick_input { index, direction, text }
 - set_flick_color { index, direction, color }
+- set_flick_longpress_duration { index, direction, duration }
+- set_flick_longpress_start_input { index, direction, text }
+- set_flick_longpress_repeat_input { index, direction, text }
+- clear_flick_longpress_start { index, direction }
+- clear_flick_longpress_repeat { index, direction }
 
 注意:
 - index は 0 始まり。無効な index を出力しない。
 - direction は left|up|right|down のいずれか。
+ - duration は short|normal|long のいずれか。
 - x,y は grid_fit のセル座標。
 - 必要に応じて flick を追加してから編集してよい（例: set_flick_label で未存在なら追加）。
 - 矛盾する操作は避け、必要最小限のアクション列にする。

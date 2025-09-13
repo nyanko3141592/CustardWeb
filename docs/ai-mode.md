@@ -76,6 +76,11 @@ HTTPエラー時は `{ message, detail }` をステータス付きで返しま�
 - `set_key_label_main_sub { index, main, sub? }`
 - `set_key_color { index, color }`
 - `set_press_input { index, text }`（押下アクションを input に設定）
+- `set_longpress_duration { index, duration }`（short|normal|long）
+- `set_longpress_start_input { index, text }`（ロングプレス開始の入力を設定）
+- `set_longpress_repeat_input { index, text }`（ロングプレス連続の入力を設定）
+- `clear_longpress_start { index }`（開始アクションをクリア）
+- `clear_longpress_repeat { index }`（連続アクションをクリア）
 - `set_keyboard_layout { row_count, column_count }`
 - `set_input_style { input_style }`
 - `set_language { language }`
@@ -89,10 +94,16 @@ HTTPエラー時は `{ message, detail }` をステータス付きで返しま�
 - `set_flick_label_main_sub { index, direction, main, sub? }`
 - `set_flick_input { index, direction, text }`
 - `set_flick_color { index, direction, color }`
+- `set_flick_longpress_duration { index, direction, duration }`
+- `set_flick_longpress_start_input { index, direction, text }`
+- `set_flick_longpress_repeat_input { index, direction, text }`
+- `clear_flick_longpress_start { index, direction }`
+- `clear_flick_longpress_repeat { index, direction }`
 
 注意:
 - `index` は 0 始まり。存在しない index を出力しないこと。
 - `direction` は `left | up | right | down` のいずれか（内部では `up→top` / `down→bottom` に正規化）。
+- `duration` は `short | normal | long` のいずれか。
 - `x, y` は `grid_fit` のセル座標。
 - 論理的整合性を保ち、最小限のアクション列にすること。
 

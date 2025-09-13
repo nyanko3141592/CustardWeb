@@ -18,6 +18,12 @@ export type AIAction =
   | { type: 'set_input_style'; input_style: CustardKeyboard['input_style'] }
   | { type: 'set_language'; language: CustardKeyboard['language'] }
   | { type: 'rename'; identifier?: string; display_name?: string }
+  // Long press on main key
+  | { type: 'set_longpress_duration'; index: number; duration: 'short' | 'normal' | 'long' }
+  | { type: 'set_longpress_start_input'; index: number; text: string }
+  | { type: 'set_longpress_repeat_input'; index: number; text: string }
+  | { type: 'clear_longpress_start'; index: number }
+  | { type: 'clear_longpress_repeat'; index: number }
   // Flick variation actions
   | { type: 'add_flick_variation'; index: number; direction: FlickIn }
   | { type: 'remove_flick_variation'; index: number; direction: FlickIn }
@@ -28,6 +34,12 @@ export type AIAction =
   | { type: 'set_flick_main_label'; index: number; direction: FlickIn; text: string }
   | { type: 'set_flick_sub_label'; index: number; direction: FlickIn; text: string }
   | { type: 'set_flick_label_main_sub'; index: number; direction: FlickIn; main: string; sub?: string }
+  // Long press inside flick
+  | { type: 'set_flick_longpress_duration'; index: number; direction: FlickIn; duration: 'short' | 'normal' | 'long' }
+  | { type: 'set_flick_longpress_start_input'; index: number; direction: FlickIn; text: string }
+  | { type: 'set_flick_longpress_repeat_input'; index: number; direction: FlickIn; text: string }
+  | { type: 'clear_flick_longpress_start'; index: number; direction: FlickIn }
+  | { type: 'clear_flick_longpress_repeat'; index: number; direction: FlickIn }
 
 export interface AIActionResult {
   keyboard: CustardKeyboard
@@ -129,6 +141,15 @@ export function applyAiActions(original: CustardKeyboard, actions: AIAction[]): 
       ;(key.variations as any[]).push(entry)
     }
     return entry
+  }
+
+  const ensureLongpress = (key: any) => {
+    if (!key.longpress_actions || typeof key.longpress_actions !== 'object') {
+      key.longpress_actions = { duration: 'normal', start: [], repeat: [] }
+    }
+    if (!Array.isArray(key.longpress_actions.start)) key.longpress_actions.start = []
+    if (!Array.isArray(key.longpress_actions.repeat)) key.longpress_actions.repeat = []
+    if (!key.longpress_actions.duration) key.longpress_actions.duration = 'normal'
   }
 
   for (const a of actions) {
@@ -260,6 +281,51 @@ export function applyAiActions(original: CustardKeyboard, actions: AIAction[]): 
         summaries.push('名前を変更')
         break
       }
+      case 'set_longpress_duration': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          ensureLongpress(pair.key)
+          pair.key.longpress_actions.duration = a.duration
+          summaries.push(`キー#${a.index + 1} のロングプレス時間を ${a.duration} に`)
+        }
+        break
+      }
+      case 'set_longpress_start_input': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          ensureLongpress(pair.key)
+          pair.key.longpress_actions.start = [{ type: 'input', text: a.text } as any]
+          summaries.push(`キー#${a.index + 1} のロングプレス開始を入力「${a.text}」に`)
+        }
+        break
+      }
+      case 'set_longpress_repeat_input': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          ensureLongpress(pair.key)
+          pair.key.longpress_actions.repeat = [{ type: 'input', text: a.text } as any]
+          summaries.push(`キー#${a.index + 1} のロングプレス連続を入力「${a.text}」に`)
+        }
+        break
+      }
+      case 'clear_longpress_start': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          ensureLongpress(pair.key)
+          pair.key.longpress_actions.start = []
+          summaries.push(`キー#${a.index + 1} のロングプレス開始アクションをクリア`)
+        }
+        break
+      }
+      case 'clear_longpress_repeat': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          ensureLongpress(pair.key)
+          pair.key.longpress_actions.repeat = []
+          summaries.push(`キー#${a.index + 1} のロングプレス連続アクションをクリア`)
+        }
+        break
+      }
       case 'add_flick_variation': {
         const pair = getKeyAtIndex(a.index)
         if (pair) {
@@ -355,6 +421,66 @@ export function applyAiActions(original: CustardKeyboard, actions: AIAction[]): 
             if (!entry.key.design) entry.key.design = { label: { text: '' }, color: 'normal' }
             entry.key.design.color = (a as any).color
             summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」色を ${(a as any).color} に`)
+          }
+        }
+        break
+      }
+      case 'set_flick_longpress_duration': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          const entry = getOrCreateFlick(pair.key, a.direction, true)
+          if (entry) {
+            ensureLongpress(entry.key)
+            entry.key.longpress_actions.duration = a.duration
+            summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」ロングプレス時間を ${a.duration} に`)
+          }
+        }
+        break
+      }
+      case 'set_flick_longpress_start_input': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          const entry = getOrCreateFlick(pair.key, a.direction, true)
+          if (entry) {
+            ensureLongpress(entry.key)
+            entry.key.longpress_actions.start = [{ type: 'input', text: a.text } as any]
+            summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」ロングプレス開始を入力「${a.text}」に`)
+          }
+        }
+        break
+      }
+      case 'set_flick_longpress_repeat_input': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          const entry = getOrCreateFlick(pair.key, a.direction, true)
+          if (entry) {
+            ensureLongpress(entry.key)
+            entry.key.longpress_actions.repeat = [{ type: 'input', text: a.text } as any]
+            summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」ロングプレス連続を入力「${a.text}」に`)
+          }
+        }
+        break
+      }
+      case 'clear_flick_longpress_start': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          const entry = getOrCreateFlick(pair.key, a.direction, true)
+          if (entry) {
+            ensureLongpress(entry.key)
+            entry.key.longpress_actions.start = []
+            summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」ロングプレス開始をクリア`)
+          }
+        }
+        break
+      }
+      case 'clear_flick_longpress_repeat': {
+        const pair = getKeyAtIndex(a.index)
+        if (pair) {
+          const entry = getOrCreateFlick(pair.key, a.direction, true)
+          if (entry) {
+            ensureLongpress(entry.key)
+            entry.key.longpress_actions.repeat = []
+            summaries.push(`キー#${a.index + 1} のフリック「${a.direction}」ロングプレス連続をクリア`)
           }
         }
         break

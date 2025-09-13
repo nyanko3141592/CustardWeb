@@ -13,6 +13,8 @@ interface Message {
   role: 'user' | 'assistant' | 'system'
   content: string
   timestamp?: Date
+  actions?: AIAction[]
+  summaries?: string[]
 }
 
 const suggestedPrompts = [
@@ -41,6 +43,47 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
   const [mode, setMode] = useState<'keyboard' | 'actions'>('actions')
   const [connection, setConnection] = useState<null | { ok: boolean; message: string }>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [expandedSummaries, setExpandedSummaries] = useState<Set<number>>(new Set())
+  
+  const arrow = (d?: string) => d === 'left' ? '←' : d === 'right' ? '→' : d === 'up' || d === 'top' ? '↑' : d === 'down' || d === 'bottom' ? '↓' : ''
+  const summarizeAction = (a: AIAction): string => {
+    const idx = (a as any).index != null ? `#${((a as any).index as number) + 1}` : ''
+    switch (a.type) {
+      case 'add_key': return `+key (${a.x},${a.y})`
+      case 'remove_key': return `-key ${idx}`
+      case 'move_key': return `move ${idx}→(${a.x},${a.y})`
+      case 'set_key_size': return `size ${idx}=${a.width}x${a.height}`
+      case 'set_key_label': return `label ${idx}='${a.text}'`
+      case 'set_key_main_label': return `main ${idx}='${a.text}'`
+      case 'set_key_sub_label': return `sub ${idx}='${a.text}'`
+      case 'set_key_label_main_sub': return `label ${idx} main='${a.main}'${a.sub ? ` sub='${a.sub}'` : ''}`
+      case 'set_key_color': return `color ${idx}=${a.color}`
+      case 'set_press_input': return `input ${idx}='${a.text}'`
+      case 'set_keyboard_layout': return `layout ${a.row_count}x${a.column_count}`
+      case 'set_input_style': return `input_style=${a.input_style}`
+      case 'set_language': return `lang=${a.language}`
+      case 'rename': return `rename${a.identifier ? ` id='${a.identifier}'` : ''}${a.display_name ? ` name='${a.display_name}'` : ''}`
+      case 'add_flick_variation': return `+flick ${idx}${arrow(a.direction)}`
+      case 'remove_flick_variation': return `-flick ${idx}${arrow(a.direction)}`
+      case 'set_flick_label': return `flick${arrow(a.direction)} ${idx} label='${a.text}'`
+      case 'set_flick_main_label': return `flick${arrow(a.direction)} ${idx} main='${a.text}'`
+      case 'set_flick_sub_label': return `flick${arrow(a.direction)} ${idx} sub='${a.text}'`
+      case 'set_flick_label_main_sub': return `flick${arrow(a.direction)} ${idx} main='${a.main}'${a.sub ? ` sub='${a.sub}'` : ''}`
+      case 'set_flick_input': return `flick${arrow(a.direction)} ${idx} input='${a.text}'`
+      case 'set_flick_color': return `flick${arrow(a.direction)} ${idx} color=${a.color}`
+      case 'set_longpress_duration': return `LP ${idx} dur=${a.duration}`
+      case 'set_longpress_start_input': return `LP ${idx} start='${a.text}'`
+      case 'set_longpress_repeat_input': return `LP ${idx} repeat='${a.text}'`
+      case 'clear_longpress_start': return `LP ${idx} start:clear`
+      case 'clear_longpress_repeat': return `LP ${idx} repeat:clear`
+      case 'set_flick_longpress_duration': return `LP ${idx}${arrow(a.direction)} dur=${a.duration}`
+      case 'set_flick_longpress_start_input': return `LP ${idx}${arrow(a.direction)} start='${a.text}'`
+      case 'set_flick_longpress_repeat_input': return `LP ${idx}${arrow(a.direction)} repeat='${a.text}'`
+      case 'clear_flick_longpress_start': return `LP ${idx}${arrow(a.direction)} start:clear`
+      case 'clear_flick_longpress_repeat': return `LP ${idx}${arrow(a.direction)} repeat:clear`
+      default: return a.type
+    }
+  }
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -113,10 +156,13 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
         try {
           const result = applyAiActions(keyboard, actions)
           onUpdate(result.keyboard, data.message || result.description)
+          const summaries = actions.map(summarizeAction)
           setMessages(prev => [...prev, {
             role: 'assistant',
             content: data.message || result.description || 'アクションを適用しました',
-            timestamp: new Date()
+            timestamp: new Date(),
+            actions,
+            summaries
           }])
         } catch (e) {
           setMessages(prev => [...prev, {
@@ -286,6 +332,31 @@ export default function AIAssistant({ keyboard, onUpdate }: AIAssistantProps) {
               >
                 {message.content}
               </div>
+              {message.role === 'assistant' && message.summaries && message.summaries.length > 0 && (
+                <div className="mt-1">
+                  <button
+                    type="button"
+                    onClick={() => setExpandedSummaries(prev => {
+                      const next = new Set(prev)
+                      if (next.has(index)) next.delete(index); else next.add(index)
+                      return next
+                    })}
+                    className="text-[11px] px-2 py-0.5 rounded border border-gray-300 bg-white hover:bg-gray-50 text-gray-700"
+                    title="アクション一覧の表示/非表示を切り替え"
+                  >
+                    アクション {message.summaries.length}件 {expandedSummaries.has(index) ? '▲' : '▼'}
+                  </button>
+                  {expandedSummaries.has(index) && (
+                    <div className="mt-1 flex flex-wrap gap-1 max-h-40 overflow-auto pr-1">
+                      {message.summaries.map((s, i) => (
+                        <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200 whitespace-nowrap">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))}
