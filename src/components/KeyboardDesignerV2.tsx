@@ -9,6 +9,7 @@ import { Clock, RotateCcw } from 'lucide-react'
 import KeyboardPreview from './KeyboardPreview'
 import KeyInspector from './KeyInspector'
 import KeyboardSettings from './KeyboardSettings'
+import AIAssistant from './AIAssistant'
 import FileManager from './FileManager'
 import JSONEditor from './JSONEditor'
 import KeyFocus from './KeyFocus'
@@ -54,13 +55,19 @@ export default function KeyboardDesignerV2() {
   const fileManager = useFileManagement(emptyInitialKeyboard)
   const [showFileManager, setShowFileManager] = useState(true)
   const [jsonCollapsed, setJsonCollapsed] = useState(false)
+  const [showAI, setShowAI] = useState(false)
   const [selectedKey, setSelectedKey] = useState<Key | null>(null)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [activeTab, setActiveTab] = useState<'key' | 'keyboard'>('keyboard')
   const [leftRatio, setLeftRatio] = useState<number>(0.5)
+  const [propWidth, setPropWidth] = useState<number>(420)
+  const [jsonWidth, setJsonWidth] = useState<number>(500)
+  const [aiWidth, setAiWidth] = useState<number>(420)
   const [hasMounted, setHasMounted] = useState(false)
   const splitRef = useRef<HTMLDivElement>(null)
   const draggingRef = useRef(false)
+  const rightDraggingRef = useRef<null | 'prop-json' | 'json-ai' | 'prop-ai'>(null)
+  const lastXRef = useRef<number>(0)
 
   useEffect(() => {
     setHasMounted(true)
@@ -73,11 +80,30 @@ export default function KeyboardDesignerV2() {
   }
 
   const onMouseMove = useCallback((e: MouseEvent) => {
-    if (!draggingRef.current || !splitRef.current) return
-    const rect = splitRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const ratio = Math.min(0.85, Math.max(0.15, x / rect.width))
-    setLeftRatio(ratio)
+    // Left (Preview | Rest) splitter
+    if (draggingRef.current && splitRef.current) {
+      const rect = splitRef.current.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const ratio = Math.min(0.85, Math.max(0.15, x / rect.width))
+      setLeftRatio(ratio)
+    }
+    // Right side splitters (Properties | JSON | AI)
+    if (rightDraggingRef.current) {
+      const dx = e.clientX - (lastXRef.current || e.clientX)
+      lastXRef.current = e.clientX
+      const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v))
+      if (rightDraggingRef.current === 'prop-json') {
+        setPropWidth(prev => clamp(prev + dx, 240, 720))
+        setJsonWidth(prev => clamp(prev - dx, 300, 800))
+      } else if (rightDraggingRef.current === 'json-ai') {
+        setJsonWidth(prev => clamp(prev + dx, 300, 800))
+        setAiWidth(prev => clamp(prev - dx, 260, 640))
+      } else if (rightDraggingRef.current === 'prop-ai') {
+        // When JSON is collapsed, resize both Properties and AI panels
+        setPropWidth(prev => clamp(prev + dx, 240, 720))
+        setAiWidth(prev => clamp(prev - dx, 260, 640))
+      }
+    }
   }, [])
 
   // Clear selection when a different keyboard/file is loaded so preview and properties reflect new data
@@ -90,6 +116,14 @@ export default function KeyboardDesignerV2() {
     if (draggingRef.current) {
       draggingRef.current = false
       try { localStorage.setItem('custard:leftRatio', String(leftRatio)) } catch {}
+    }
+    if (rightDraggingRef.current) {
+      rightDraggingRef.current = null
+      try {
+        localStorage.setItem('custard:propWidth', String(propWidth))
+        localStorage.setItem('custard:jsonWidth', String(jsonWidth))
+        localStorage.setItem('custard:aiWidth', String(aiWidth))
+      } catch {}
     }
   }, [leftRatio])
 
@@ -113,8 +147,16 @@ export default function KeyboardDesignerV2() {
       
       const fileManagerState = localStorage.getItem('custard:showFileManager')
       if (fileManagerState === '0') setShowFileManager(false)
+
+      const pw = Number(localStorage.getItem('custard:propWidth'))
+      if (Number.isFinite(pw) && pw >= 200) setPropWidth(pw)
+      const jw = Number(localStorage.getItem('custard:jsonWidth'))
+      if (Number.isFinite(jw) && jw >= 200) setJsonWidth(jw)
+      const aw = Number(localStorage.getItem('custard:aiWidth'))
+      if (Number.isFinite(aw) && aw >= 200) setAiWidth(aw)
     } catch {}
   }, [])
+
 
   // Clear selection when a different file/keyboard is loaded
   useEffect(() => {
@@ -410,6 +452,16 @@ export default function KeyboardDesignerV2() {
               >
                 JSON: {jsonCollapsed ? 'OFF' : 'ON'}
               </button>
+
+              <button
+                onClick={() => setShowAI((v) => !v)}
+                className={`px-3 py-1 rounded text-sm border ${
+                  showAI ? 'bg-purple-500 text-white border-purple-500' : 'bg-purple-50 text-purple-700 border-purple-200'
+                }`}
+                title={showAI ? 'AIパネルを隠す' : 'AIパネルを表示'}
+              >
+                🤖 AI
+              </button>
               
               <button
                 onClick={() => fileManager.save()}
@@ -425,36 +477,41 @@ export default function KeyboardDesignerV2() {
         {/* Main Layout */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 flex overflow-hidden">
-            <div ref={splitRef} className="flex flex-1">
-              {/* Preview Panel */}
-              <div
-                className="flex flex-col bg-white border-r border-gray-200"
-                style={{ flex: `0 0 ${Math.round(leftRatio * 100)}%` }}
-              >
-                <div className="flex-1 overflow-y-auto p-4">
-                  <KeyboardPreview
-                    key={forceKey}
-                    keyboard={fileManager.currentKeyboard}
-                    onSelectKey={(key, index) => {
-                      setSelectedKey(key)
-                      setSelectedIndex(index)
-                    }}
-                    selectedKey={selectedKey}
-                    onCreateKey={createKeyAt}
-                    onCreateFlickVariation={createFlickVariationAt}
-                  />
-                </div>
+            {/* Preview Panel */}
+            <div
+              className="flex flex-col bg-white border-r border-gray-200"
+              style={{ flex: `0 0 ${Math.round(leftRatio * 100)}%` }}
+            >
+              <div className="flex-1 overflow-y-auto p-4">
+                <KeyboardPreview
+                  key={forceKey}
+                  keyboard={fileManager.currentKeyboard}
+                  onSelectKey={(key, index) => {
+                    setSelectedKey(key)
+                    setSelectedIndex(index)
+                  }}
+                  selectedKey={selectedKey}
+                  onCreateKey={createKeyAt}
+                  onCreateFlickVariation={createFlickVariationAt}
+                />
               </div>
+            </div>
 
-              {/* Resizer */}
-              <div
-                onMouseDown={startDrag}
-                className="w-1 cursor-col-resize bg-gray-200 hover:bg-gray-300 active:bg-gray-400"
-              />
+            {/* Resizer */}
+            <div
+              onMouseDown={startDrag}
+              className="w-1 cursor-col-resize bg-gray-200 hover:bg-gray-300 active:bg-gray-400"
+            />
 
+            {/* Right side panels container */}
+            <div ref={splitRef} className="flex flex-1 overflow-hidden">
               {/* Properties Panel */}
-              <div className="flex flex-col bg-white border-r border-gray-200" 
-                   style={{ width: jsonCollapsed ? 'auto' : '420px', flex: jsonCollapsed ? '1' : undefined }}>
+              <div className="flex flex-col bg-white" 
+                   style={{ 
+                     width: (jsonCollapsed && !showAI) ? undefined : `${propWidth}px`, 
+                     flex: (jsonCollapsed && !showAI) ? '1' : undefined,
+                     minWidth: 240 
+                   }}>
                 <div className="px-3 py-2 border-b border-gray-200">
                   <div className="flex space-x-2">
                     <button
@@ -494,14 +551,56 @@ export default function KeyboardDesignerV2() {
                 </div>
               </div>
 
+              {/* Resizer between Properties and JSON */}
+              {!jsonCollapsed && (
+                <div
+                  onMouseDown={(e) => { rightDraggingRef.current = 'prop-json'; lastXRef.current = e.clientX; e.preventDefault() }}
+                  className="w-1 cursor-col-resize bg-gray-200 hover:bg-gray-300 active:bg-gray-400"
+                  title="ドラッグして幅を調整"
+                />
+              )}
+
               {/* JSON Editor Panel */}
               {!jsonCollapsed && (
-                <div className="flex-1 flex flex-col bg-white">
+                <div className="flex flex-col bg-white" style={{ 
+                  width: !showAI ? undefined : `${jsonWidth}px`,
+                  flex: !showAI ? '1' : undefined,
+                  minWidth: 300 
+                }}>
                   <JSONEditor
                     key={forceKey}
                     keyboard={fileManager.currentKeyboard}
                     onUpdate={(kb, msg) => fileManager.updateKeyboard(kb, msg || 'JSON編集')}
                   />
+                </div>
+              )}
+
+              {/* Resizer between JSON and AI (or Properties and AI when JSON is collapsed) */}
+              {showAI && (
+                <div
+                  onMouseDown={(e) => { 
+                    rightDraggingRef.current = jsonCollapsed ? 'prop-ai' : 'json-ai'; 
+                    lastXRef.current = e.clientX; 
+                    e.preventDefault() 
+                  }}
+                  className="w-1 cursor-col-resize bg-gray-200 hover:bg-gray-300 active:bg-gray-400"
+                  title="ドラッグして幅を調整"
+                />
+              )}
+
+              {showAI && (
+                <div className="bg-white flex flex-col" style={{ 
+                  width: jsonCollapsed ? undefined : `${aiWidth}px`,
+                  flex: jsonCollapsed ? '1' : undefined,
+                  minWidth: 280 
+                }}>
+                  <div className="px-3 py-2 border-b text-sm font-medium text-gray-700">AIアシスタント</div>
+                  <div className="flex-1 overflow-hidden">
+                    <AIAssistant
+                      keyboard={fileManager.currentKeyboard}
+                      onUpdate={(kb, msg) => fileManager.updateKeyboard(kb, msg || 'AI編集')}
+                    />
+                  </div>
                 </div>
               )}
             </div>

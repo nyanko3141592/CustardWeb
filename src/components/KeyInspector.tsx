@@ -603,9 +603,8 @@ export default function KeyInspector({ keyboard, selectedIndex, onChange }: KeyI
               ;(k.longpress_actions as any).duration = e.target.value
             })}
           >
-            <option value="short">short</option>
+            <option value="light">light</option>
             <option value="normal">normal</option>
-            <option value="long">long</option>
           </select>
         </div>
         <div className="grid grid-cols-2 gap-3">
