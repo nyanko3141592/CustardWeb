@@ -10,6 +10,14 @@ A Next.js-based visual editor for Custard keyboard layouts. Edit presets, previe
 - **Resizable Panels**: Drag the vertical splitter to adjust Preview vs Properties vs JSON width. Layout persists per browser. Panels reordered to Preview | Properties | JSON for improved workflow.
 - **Presets & Saving**: Presets come from `src/lib/templates/`. When a preset is changed, it auto-saves as a new local file (`Keyboard{n}`) in `localStorage`. Saved items can be opened or deleted.
 
+### AIモード（Gemini）
+- 右上の「🤖 AI」からAIパネルを開き、APIキーを設定して指示を入力します。
+- モード:
+  - アクション: GUI操作の列をAIが提案し、クライアント側で順次適用（推奨）。
+  - JSON: 更新済みのキーボードJSON全体を受け取り、そのまま反映。
+- 「接続テスト」でAPIキーとエンドポイントの到達性を検証できます。
+- 仕様の詳細は `docs/ai-mode.md` を参照してください。
+
 ## Project Structure
 - `src/app/`: Next.js App Router (pages, layouts, API).
 - `src/components/`: UI components (e.g., `KeyboardDesigner`, `KeyboardPreview`, `JSONEditor`).
